@@ -1,0 +1,61 @@
+--langmap=sql:+.pgsql
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(domain|type)[ \t]+([^.]+\.)?([a-zA-Z0-9_@.]+)/\4/D,types/i
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(table)[ \t]+([^.]+\.)?([a-zA-Z0-9_@.]+)/\4/t,table/i
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(view)[ \t]+([^.]+\.)?([a-zA-Z0-9_@.]+)/\4/V,view/i
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(function)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/f,function/i
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(trigger)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/T,trigger/i
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(index)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/i,index/i
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(sequence)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/q,sequence/i
+--regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(rule|schema|database)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/o,other/i
+
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^[:blank:]*([#]+.+)/\1/s,sections,Markdown Headings/
+--regex-markdown=/(^|[^!\\])\[([^!]([^]]|\\\])*)\]\(/\2/l,link,Markdown Links/
+--regex-markdown=/!\[(([^]]|\\\])+)\]\(/\1/i,image,Markdown Image/
+
+--langdef=latex
+--langmap=latex:.tex
+--regex-latex=/^\\tableofcontents/TABLE OF CONTENTS/s,toc/
+--regex-latex=/^\\frontmatter/FRONTMATTER/s,frontmatter/
+--regex-latex=/^\\mainmatter/MAINMATTER/s,mainmatter/
+--regex-latex=/^\\backmatter/BACKMATTER/s,backmatter/
+--regex-latex=/^\\bibliography\{/BIBLIOGRAPHY/s,bibliography/
+--regex-latex=/^\\part[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/PART \2/s,part/
+--regex-latex=/^\\part[[:space:]]*\*[[:space:]]*\{([^}]+)\}/PART \1/s,part/
+--regex-latex=/^\\chapter[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/CHAP \2/s,chapter/
+--regex-latex=/^\\chapter[[:space:]]*\*[[:space:]]*\{([^}]+)\}/CHAP \1/s,chapter/
+--regex-latex=/^\\section[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\. \2/s,section/
+--regex-latex=/^\\section[[:space:]]*\*[[:space:]]*\{([^}]+)\}/\. \1/s,section/
+--regex-latex=/^\\subsection[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\.\. \2/s,subsection/
+--regex-latex=/^\\subsection[[:space:]]*\*[[:space:]]*\{([^}]+)\}/\.\. \1/s,subsection/
+--regex-latex=/^\\subsubsection[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\.\.\. \2/s,subsubsection/
+--regex-latex=/^\\subsubsection[[:space:]]*\*[[:space:]]*\{([^}]+)\}/\.\.\. \1/s,subsubsection/
+--regex-latex=/^\\includegraphics[[:space:]]*(\[[^]]*\])?[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\3/g,graphic+listing/
+--regex-latex=/^\\lstinputlisting[[:space:]]*(\[[^]]*\])?[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\3/g,graphic+listing/
+--regex-latex=/\\label[[:space:]]*\{([^}]+)\}/\1/l,label/
+--regex-latex=/\\ref[[:space:]]*\{([^}]+)\}/\1/r,ref/
+--regex-latex=/\\pageref[[:space:]]*\{([^}]+)\}/\1/p,pageref/
+--regex-latex=/\\frametitle[[:space:]]*\{([^}]+)\}/\1/s,slide/
+--regex-latex=/\\begin[[:space:]]*\{frame\}[[:space:]]*\{([^}]+)\}/\1/s,slide/
+
+--langdef=context
+--regex-context=/^[[:space:]]*\\startslide[[:space:]]*\[[^]]*title[[:space:]]*=[[:space:]]*\{[[:space:]]*(.+)\}/\1/S,slide/
+--regex-context=/^[[:space:]]*\\startsection[[:space:]]*\[[^]]*title[[:space:]]*=[[:space:]]*\{[[:space:]]*(.+)\}/\. \1/s,section/
+--regex-context=/^[[:space:]]*\\startsubsection[[:space:]]*\[[^]]*title[[:space:]]*=[[:space:]]*\{[[:space:]]*(.+)\}/\.\. \1/s,subsection/
+--regex-context=/^[[:space:]]*\\startsubsubsection[[:space:]]*\[[^]]*title[[:space:]]*=[[:space:]]*\{[[:space:]]*(.+)\}/\.\.\. \1/s,subsubsection/
+--regex-context=/^[[:space:]]*\\startchapter[[:space:]]*\[[^]]*title[[:space:]]*=[[:space:]]*\{[[:space:]]*(.+)\}/\1/c,chapter/
+--regex-context=/^[[:space:]]*\\startsubject[[:space:]]*\[[^]]*title[[:space:]]*=[[:space:]]*\{[[:space:]]*(.+)\}/SUBJ \1/c,subject/
+--regex-context=/^[[:space:]]*\\startpart[[:space:]]*\[[^]]*title[[:space:]]*=[[:space:]]*\{[[:space:]]*(.+)\}/\1/p,part/
+
+--langdef=metapost
+--langmap=metapost:.mp.mf
+--regex-metapost=/^[^%]*[[:<:]]def[[:>:]][[:space:]]*([^ .(]+)[^=]*=/\1/d,def/
+--regex-metapost=/^[^%]*[[:<:]]vardef[[:>:]][[:space:]]*([^ (=@]*)[^=]*=/\1/v,vardef/
+--regex-metapost=/^[^%]*[[:<:]]tertiarydef[[:>:]][[:space:]]*[^ .]+[[:space:]]*([^ .]+)[^=]*=/\1/t,tertiarydef/
+--regex-metapost=/^[^%]*[[:<:]]secondarydef[[:>:]][[:space:]]*[^ .]+[[:space:]]*([^ .]+)[^=]*=/\1/s,secondarydef/
+--regex-metapost=/^[^%]*[[:<:]]primarydef[[:>:]][[:space:]]*[^ .]+[[:space:]]*([^ .]+)[^=]*=/\1/p,primarydef/
+--regex-metapost=/^[^%]*[[:<:]]beginfig[[:space:]]*(\(.+\))/\1/f,figures/
+--regex-metapost=/^[^%]*[[:<:]]begin(logo)?char[[:space:]]*\([[:space:]]*("[^"]+")/\2/c,characters/
+--regex-metapost=/^[^%]*[[:<:]]begintestcase[[:space:]]*\([[:space:]]*"(.+)"[[:space:]]*\)/\1/C,testcases/
+--regex-metapost=/^[^%]*[[:<:]]begintest[[:space:]]*\([[:space:]]*"(.+)"[[:space:]]*\)/\1/T,tests/

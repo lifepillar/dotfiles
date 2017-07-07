@@ -1,0 +1,67 @@
+# vim: ft=gitconfig
+[core]
+  # Use custom `.gitignore` and `.gitattributes`
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  editor = vim
+
+  # Make `git rebase` safer on macOS
+  # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+  trustctime = false
+
+[alias]
+  br = branch
+  ci = commit
+  co = checkout
+  st = status
+  clear = reset --hard
+
+  # View abbreviated SHA, description, and history graph
+  l = log --pretty=oneline --graph --abbrev-commit
+
+  # Find commits by commit message
+  fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1 -i; }; f"
+  # ...with fuzzy search
+  fzf = "!git log --color=never --format='%h%d %s %cr' | fzf | awk '{print $1}' | git show --stdin"
+
+  # Show verbose output about tags, branches or remotes
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+
+  # Interactive rebase with the given number of latest commits
+  irebase = "!r() { git rebase -i HEAD~$1; }; r"
+
+  # List contributors with number of commits
+  contributors = shortlog --summary --numbered
+
+  # From http://stackoverflow.com/questions/2517339/git-how-to-recover-the-file-permissions-git-thinks-the-file-should-be
+  permission-reset = "!git diff -p | grep -E '^(diff|old mode|new mode)' | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' | git apply"
+
+[user]
+  name = Lifepillar
+  email = lifepillar@lifepillar.me
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+
+[merge]
+  tool = vimdiff
+
+[gui]
+  spellingdictionary = en
+
+# The following added by SourceTree
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[push]
+  default = simple
+[credential]
+  helper = osxkeychain

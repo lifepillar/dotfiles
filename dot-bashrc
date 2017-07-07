@@ -1,0 +1,71 @@
+# vim: ft=sh
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+set -P # follow physical directory structure
+stty dsusp undef # Do not suspend programs (such as tig) on Ctrl-Y
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend;
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+#for option in autocd globstar; do
+#  shopt -s "$option" 2> /dev/null;
+#done;
+
+lf_ssh=$([ "${SSH_TTY}" ] && echo "⎋ ")
+export PS1='\[`test $? -ne 0 && printf "\e[35m✗\e[0m "`\]\e[31m${lf_ssh}\u\e[0m at \e[33m\h\e[0m in \e[32m\w\e[0m\n]';
+export PS2="→ ";
+
+GPG_TTY=$(tty)
+export GPG_TTY
+
+HOMEBREW_PREFIX=/usr/local
+source $HOMEBREW_PREFIX/etc/bash_completion
+source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
+source $HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh
+unset HOMEBREW_PREFIX
+
+# Easier navigation:
+alias ..="cd .."
+alias .2="cd ../.."
+alias .3="cd ../../.."
+alias .4="cd ../../../.."
+alias .5="cd ../../../../.."
+alias .6="cd ../../../../../.."
+alias -- -="cd -"
+
+# Top... twenty commands used :>
+function topten {
+  history | awk '{ print $2 }' | sort | LC_ALL=C uniq -c |sort -rn | head -n 20
+}
+
+alias asmake='./makefile.applescript'
+
+function man2pdf {
+  man -t $1 | open -f -a Preview
+}
+
+MARKPATH=$HOME/.marks
+CDPATH=.:$MARKPATH
+
+function mark {
+  mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
+}
+function unmark {
+  rm -i "$MARKPATH/$1"
+}
+function marks {
+  (t="$(printf "\t")"; cd $MARKPATH && stat -f"%N$t%SY" * | column -ts"$t")
+}
+
+# ~/.bashrc_top_secret can be used for settings that must not be shared.
+if [ -r .bashrc_top_secret ] && [ -f .bashrc_top_secret ] ; then
+    source .bashrc_top_secret
+fi

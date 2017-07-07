@@ -1,0 +1,13 @@
+\set QUIET 1
+\set PROMPT1 '%[%033[0;34m%]%/%R%x%#%[%033[0m%] '
+\set PROMPT2 '%[%033[0;33m%]%R%x →%[%033[0m%] '
+\set HISTCONTROL ignoreboth
+\set HISTSIZE 10000
+\set extensions 'select * from pg_available_extensions;'
+\set version 'SELECT version();'
+\pset border 2
+\pset format wrapped
+\pset linestyle unicode
+\pset null '⟘'
+\x auto
+\unset QUIET
