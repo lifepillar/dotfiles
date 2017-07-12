@@ -1,12 +1,15 @@
---langmap=sql:+.pgsql
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(domain|type)[ \t]+([^.]+\.)?([a-zA-Z0-9_@.]+)/\4/D,types/i
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(table)[ \t]+([^.]+\.)?([a-zA-Z0-9_@.]+)/\4/t,table/i
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(view)[ \t]+([^.]+\.)?([a-zA-Z0-9_@.]+)/\4/V,view/i
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(function)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/f,function/i
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(trigger)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/T,trigger/i
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(index)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/i,index/i
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(sequence)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/q,sequence/i
---regex-sql=/^[ \t]*create[ \t]+([a-zA-Z0-9 \t]*)?(rule|schema|database)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/o,other/i
+--langdef=pgsql
+--langmap=pgsql:.sql.pgsql
+--regex-pgsql=/^[ \t]*create[ \t]+(domain|type)[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\3/d,domains/i
+--regex-pgsql=/^[ \t]*create[ \t]+(or[ \t]+replace[ \t]+)?function[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\3/f,function/i
+--regex-pgsql=/^[ \t]*create[ \t]+(unique[ \t]+)?index[ \t]+(concurrently[ \t]+)?(if[ \t]+not[ \t]+exists[ \t]+)?([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\5/i,index/i
+--regex-pgsql=/^[ \t]*create[ \t]+schema[ \t]+(if[ \t]+not[ \t]+exists[ \t]+)?"?([a-zA-Z0-9_@.]+)/\2/s,schema/i
+--regex-pgsql=/^[ \t]*create[ \t]+(temp[ \t]+|temporary[ \t]+)?sequence[ \t]+(if[ \t]+not\+exists[ \t]+)?([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\4/S,sequence/i
+--regex-pgsql=/^[ \t]*create[ \t]+(global[ \t]+|local[ \t]+)?(temp[ \t]+|temporary[ \t]+)?(unlogged[ \t]+)?table[ \t]+(if[ \t]+not[ \t]+exists[ \t]+)?([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\6/t,table/i
+--regex-pgsql=/^[ \t]*create[ \t]+(or[ \t]+replace[ \t]+)?(temp[ \t]+|temporary[ \t]+)?(recursive[ \t]+)?view[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\5/V,view/i
+--regex-pgsql=/^[ \t]*create[ \t]+(constraint[ \t]+)?trigger[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\3/T,trigger/i
+--regex-pgsql=/^[ \t]*create[ \t]+(or[ \t]+replace[ \t]+)?rule[ \t]+([^.]+\.)?"?([a-zA-Z0-9_@.]+)/\3/r,rule/i
+--regex-pgsql=/^[ \t]*create[ \t]+database[ \t]+([a-zA-Z0-9_@.]+)/\1/D,database/i
 
 --langdef=markdown
 --langmap=markdown:.md
