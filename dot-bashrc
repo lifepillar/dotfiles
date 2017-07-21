@@ -3,7 +3,9 @@
 [ -z "$PS1" ] && return
 
 set -P # follow physical directory structure
-stty dsusp undef # Do not suspend programs (such as tig) on Ctrl-Y
+
+# Do not suspend programs (such as tig) on Ctrl-Y. Do not stop on CTRL-S (see: man stty)
+stty dsusp undef -ixon
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
