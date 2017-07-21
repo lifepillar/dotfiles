@@ -4,8 +4,10 @@
 
 set -P # follow physical directory structure
 
-# Do not suspend programs (such as tig) on Ctrl-Y. Do not stop on CTRL-S (see: man stty)
-stty dsusp undef -ixon
+# Do not suspend programs (such as tig) on Ctrl-Y.
+stty dsusp undef
+# Do not stop on CTRL-S (see: man stty)
+stty -ixon
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
