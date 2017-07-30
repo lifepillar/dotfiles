@@ -17,7 +17,7 @@ unset HOMEBREW_PREFIX
 # fzf
 export FZF_DEFAULT_COMMAND='rg --files 2>/dev/null'
 export FZF_DEFAULT_OPTS='
-  --color fg:242,bg:-1,hl:236,fg+:243,bg+:-1,hl+:236
+  --color fg:242,bg:-1,hl:238,fg+:243,bg+:-1,hl+:166
   --color info:248,prompt:243,spinner:242,pointer:242,marker:166'
 
 # ~/.bash_profile_top_secret can be used for settings that must not be shared.
