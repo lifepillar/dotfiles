@@ -24,7 +24,7 @@ shopt -s histappend;
 #done;
 
 lf_ssh=$([ "${SSH_TTY}" ] && echo "⎋ ")
-export PS1='\[`test $? -ne 0 && printf "\e[35m✗\e[0m "`\]\e[31m${lf_ssh}\u\e[0m at \e[33m\h\e[0m in \e[32m\w\e[0m\n]';
+export PS1='\[`test $? -ne 0 && printf "\e[35m✗\e[0m "`\]\e[33m${lf_ssh}\u\e[0m at \e[32m\h\e[0m in \e[31m\w\e[0m\n]';
 export PS2="→ ";
 
 GPG_TTY=$(tty)
