@@ -14,8 +14,15 @@
 --langdef=markdown
 --langmap=markdown:.md
 --regex-markdown=/^[:blank:]*([#]+.+)/\1/s,sections,Markdown Headings/
---regex-markdown=/(^|[^!\\])\[([^!]([^]]|\\\])*)\]\(/\2/l,link,Markdown Links/
---regex-markdown=/!\[(([^]]|\\\])+)\]\(/\1/i,image,Markdown Image/
+--regex-markdown=/(^|[^!\\])\[([^!]([^]]|\\\])*)\]\(/\2/l,links,Markdown Links/
+--regex-markdown=/!\[(([^]]|\\\])+)\]\(/\1/i,images,Markdown Image/
+
+--langdef=rmarkdown
+--langmap=rmarkdown:.rmd.Rmd
+--regex-rmarkdown=/^([#]+[[:space:]]+.+)/\1/s,sections,Markdown Headings/
+--regex-rmarkdown=/(^|[^!\\])\[([^!]([^]]|\\\])*)\]\(/\2/l,links,Markdown Links/
+--regex-rmarkdown=/!\[(([^]]|\\\])+)\]\(/\1/i,images,Markdown Image/
+--regex-rmarkdown=/^```{r[[:blank:]]+([^,}]+)[,}]/\1/r,snippets,R Snippets/
 
 --langdef=latex
 --langmap=latex:.tex
