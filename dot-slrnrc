@@ -232,7 +232,7 @@ set display_cursor_bar	1
 %set color_by_score 3
 
 % If non-zero, the subjects of unread articles are highlighted
-set highlight_unread_subjects 1
+set highlight_unread_subjects 2
 
 % If non-zero, URLs are highlighted.
 set highlight_urls 1
@@ -262,9 +262,9 @@ color   grouplens_display   "gray"            "white"
 color   header_name         "gray"            "white"          "bold"
 color   header_number       "gray"            "white"
 color   headers             "blue"            "white"
-color   neg_score           "green"           "white"
+color   neg_score           "red"             "white"
 color   pos_score           "blue"            "white"
-color   high_score          "red"             "white"          "bold"
+color   high_score          "green"           "white"          "bold"
 color   italicstext         "black"           "white"          "bold"
 color   menu                "white"           "cyan"
 color   menu_press          "cyan"            "white"
@@ -284,11 +284,11 @@ color   signature           "red"             "white"
 color   selection           "white"           "cyan"           "bold"
 color   status              "white"           "cyan"
 color   subject             "black"           "white"
-color   thread_number       "gray"            "white"        "bold"
-color   tilde               "brightred"       "white"        "bold"
-color   tree                "brightred"       "white"        "bold"
-color   underlinetext       "cyan"            "white"        "underline"
-color   url                 "brightred"       "white"        "bold"
+color   thread_number       "gray"            "white"          "bold"
+color   tilde               "brightred"       "white"          "bold"
+color   tree                "brightred"       "white"          "bold"
+color   underlinetext       "cyan"            "white"          "underline"
+color   url                 "brightred"       "white"          "bold"
 color   verbatim            "green"           "white"
 
 % These attributes are for terminals that cannot display color:
@@ -348,9 +348,9 @@ set overview_date_format    "%e %b %Y %H:%M"
 set use_localtime 0
 
 set top_status_line         " %n  %-61g%-60s "
-set group_status_line       " %D %s %-20g %L (%P)"
-set header_status_line      "%p[%u/%t unread] %n%-20g %L (%P)"
-set art_status_line         "%p%n  %s %-20g  %L (%P)"
+set group_status_line       " %D %s %-20g %-12L (%P) "
+set header_status_line      "%p[%u/%t unread] %n%-20g %-12L (%P) "
+set art_status_line         "%p%n  %s %-20g %-12L (%P) "
 
 %
 %% 10. Group mode key bindings
@@ -385,6 +385,7 @@ setkey group repeat_last_key           "."            % Repeat last key sequence
 setkey group evaluate_cmd              "^X<Esc>"      % Read line and interpret it as S-Lang
 setkey group suspend                   "^Z"           % Suspend slrn
 setkey group quit                      "Q"            % Quit slrn
+setkey group quit                      "ZZ"
 
 % Group management:
 setkey group catchup                   "C"            % Mark all articles as read
@@ -432,11 +433,11 @@ setkey article decode                  ":"            % Decode article
 setkey article suspend                 "^Z"           % Suspend slrn
 setkey article quit                    "q"            % Quit slrn
 setkey article fast_quit               "Q"            % Quit slrn immediately
+setkey article fast_quit               "ZZ"
 
 % Moving in the article pager:
 setkey article article_line_down       "<Return>"     % Scroll article down one line
-setkey article article_line_down       "^J"
-setkey article article_line_up         "^K"           % Scroll article up one line
+setkey article article_line_up         "^Y"           % Scroll article up one line
 setkey article article_page_down       "<Space>"	    % Scroll article down one page
 setkey article article_page_up         "<Backspace>"  % Scroll article up one page
 setkey article article_page_up         "b"
@@ -451,8 +452,10 @@ setkey article forward_digest          "<Esc>D"        % Skip to next digest
 % Moving in the header display:
 setkey article header_line_down        "j"            % Move to next article
 setkey article header_line_down        "<Down>"
+setkey article header_line_down        "^J"
 setkey article header_line_up          "k"            % Move to previous article
 setkey article header_line_up          "<Up>"
+setkey article header_line_up          "^K"
 setkey article header_page_down        "^F"           % Scroll down one page
 setkey article header_page_down        "<PageDown>"
 setkey article header_page_up          "^B"           % Scroll up one page
@@ -536,11 +539,13 @@ setkey readline cycle                  " "            % Cycle among filenames
 interpret "mime.sl"
 setkey article "mime_process_multipart" "<esc>m"
 setkey article "mime_browse" "<esc>M"
+% Search messages (type "$" in article mode)
+interpret "search.sl"
+% My macros
+interpret ".slrn-macros/lifep.sl"
 
 set use_tilde 0
 
 set wrap_flags 7
 set wrap_method 2
 
-interpret "color.sl"
-setkey article edit_colors "\eec"
