@@ -281,7 +281,7 @@ color   quotes6             "green"           "white"
 color   quotes7             "brown"           "white"
 color   response_char       "green"           "white"          "bold"
 color   signature           "red"             "white"
-color   selection           "white"           "cyan"           "bold"
+color   selection           "black"           "lightgray"      "bold"
 color   status              "white"           "cyan"
 color   subject             "black"           "white"
 color   thread_number       "gray"            "white"          "bold"
@@ -548,4 +548,7 @@ set use_tilde 0
 
 set wrap_flags 7
 set wrap_method 2
+
+%interpret "color.sl"
+%setkey article edit_colors "\eec"
 
