@@ -1,0 +1,4 @@
+.headers   on
+.mode      column
+.nullvalue ⟘
+.width     -15 -15 -15 -15 -15 -15
