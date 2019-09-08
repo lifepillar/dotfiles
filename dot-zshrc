@@ -1,5 +1,4 @@
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+# vim: ft=zsh
 export CLICOLOR=1
 export EDITOR='vim'
 export GREP_OPTIONS='--color=auto'
@@ -12,76 +11,58 @@ export FZF_DEFAULT_OPTS='
   --color info:248,prompt:243,spinner:242,pointer:242,marker:166'
 GPG_TTY=$(tty)
 export GPG_TTY
-# Shell history
+
+# Functions
+fpath+=~/.zshfunctions
+autoload topten
+autoload man2pdf
+
+# Parameters used by the shell (http://zsh.sourceforge.net/Doc/Release/Parameters.html)
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
-SAVEHIST=10000
-HISTSIZE=4000
-# Share history across multiple zsh sessions
-setopt share_history
-# Append to history
-setopt append_history
-# Save more info (timestamp in unix epoch time and elapsed time of the command)
-# setopt extended_history
-# Adds commands as they are typed, not at shell exit
-setopt inc_append_history
-# Expire duplicates first
-setopt hist_expire_dups_first
-# Do not store duplicates
-setopt hist_ignore_dups
-# Ignore duplicates when searching
-setopt hist_find_no_dups
-# Remove blank lines from history
-setopt hist_reduce_blanks
-# Show a substituted command (e.g., sudo !!) in the prompt
-setopt hist_verify
+HISTSIZE=5000
+SAVEHIST=4000
+lf_ssh=$([ "${SSH_TTY}" ] && echo "⎋ ")
+PROMPT='%(?..%F{red}✗%f )%F{yellow}%n%f at %F{green}%M%f in %F{magenta}%~%f
+]'
+PROMPT2="→ ";
 
-# Globbing
-# Case-insensitive globbing
-setopt no_case_glob
-# Complete, but do not substitute, after expansion
-setopt glob_complete
-# Change directory by typing only the path
+# ZSH options (http://zsh.sourceforge.net/Doc/Release/Options.html)
+
+# Changing directories
 setopt auto_cd
-
-# Correction
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_minus
+# Expansion and globbing
+setopt glob
+setopt no_case_glob
+setopt no_case_match
+# History
+setopt append_history
+setopt hist_fcntl_lock
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_lex_words
+setopt hist_reduce_blanks
+setopt hist_verify
+setopt menu_complete
+setopt no_inc_append_history
+setopt share_history
+# Input//Output
 setopt correct
 setopt correct_all
+setopt no_flow_control
 
 # Completion
-# zstyle ':completion:*' completer _expand _complete _ignored _match _correct _approximate _prefix
+setopt glob_complete
+zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} r:|[._-]=* r:|=*' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}'
-# Partial completion suggestions
-zstyle ':completion:*' list-suffixes
-zstyle ':completion:*' expand prefix suffix
-# zstyle ':completion:*' max-errors 1 numeric
-# zstyle ':completion:*' prompt '%e>'
-# zstyle :compinstall filename '/Users/nicola/.zshrc'
-
 autoload -Uz compinit && compinit
 # Load bashcompinit for some old bash completions
 autoload bashcompinit && bashcompinit
 [[ -r /usr/local/etc/bash_completion.d/fossil-autocomplete.bash ]] && source /usr/local/etc/bash_completion.d/fossil-autocomplete.bash
-
-# Recent directories
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':completion:*:*:cdr:*:*' menu selection
-
-# Prompt
-lf_ssh=$([ "${SSH_TTY}" ] && echo "⎋ ")
-export PROMPT='%(?..%F{red}✗%f )%F{yellow}%n%f at %F{green}%M%f in %F{magenta}%~%f
-]'
-# export PS1='\[`test $? -ne 0 && printf "\e[35m✗\e[0m "`\]\e[33m${lf_ssh}\u\e[0m at \e[32m\h\e[0m in \e[31m\w\e[0m\n]';
-export PS2="→ ";
-
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%F{cyan}(%b)%r%f'
-zstyle ':vcs_info:fossil:*' formats '%F{white}(%b)%r%f'
-zstyle ':vcs_info:*' enable fossil git
 
 # Aliases
 alias .2="cd ../.."
@@ -89,19 +70,17 @@ alias .3="cd ../../.."
 alias .4="cd ../../../.."
 alias .5="cd ../../../../.."
 alias .6="cd ../../../../../.."
-alias -- -="cd -"
 alias asmake='./makefile.applescript'
 alias f=fossil
 # Suffix aliases
 alias -s html="open -a Firefox"
-
-# Functions
-fpath+=~/.zshfunctions
-autoload topten
-autoload man2pdf
+alias -s  txt="vim"
+alias -s   md="vim"
+alias -s  vim="vim"
 
 # Emacs key bindings (use -v for vi key bindings)
 bindkey -e
 # Better history navigation (matches current text)
 bindkey $'^[[A' up-line-or-search    # up arrow
 bindkey $'^[[B' down-line-or-search  # down arrow
+
