@@ -1,0 +1,3 @@
+function man2pdf {
+  man -t $1 | open -f -a Preview
+}

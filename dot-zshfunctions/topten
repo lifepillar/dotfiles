@@ -1,0 +1,4 @@
+# Top... twenty commands used :>
+function topten {
+  history | awk '{ print $2 }' | LC_ALL=C sort -i | LC_ALL=C uniq -c | LC_ALL=C sort -irn | head -n 20
+}
