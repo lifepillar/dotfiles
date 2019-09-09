@@ -18,8 +18,8 @@ autoload topten
 autoload man2pdf
 
 # Parameters used by the shell (http://zsh.sourceforge.net/Doc/Release/Parameters.html)
-LANG=en_US.UTF-8
-LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=5000
 SAVEHIST=4000
