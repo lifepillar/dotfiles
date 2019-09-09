@@ -24,7 +24,7 @@ HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=5000
 SAVEHIST=4000
 lf_ssh=$([ "${SSH_TTY}" ] && echo "⎋ ")
-PROMPT='%(?..%F{red}✗%f )%F{yellow}%n%f at %F{green}%M%f in %F{magenta}%~%f
+PROMPT='%(?..%F{red}✗%f )%F{yellow}%n%f at %F{green}%m%f in %F{magenta}%~%f
 ]'
 PROMPT2="→ ";
 
