@@ -31,34 +31,58 @@ PROMPT2="→ ";
 # ZSH options (http://zsh.sourceforge.net/Doc/Release/Options.html)
 
 # Changing directories
-setopt auto_cd
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushd_minus
-# Expansion and globbing
-setopt glob
-setopt no_case_glob
-setopt no_case_match
-# History
-setopt append_history
-setopt hist_fcntl_lock
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-setopt hist_lex_words
-setopt hist_reduce_blanks
-setopt hist_verify
-setopt menu_complete
-setopt no_inc_append_history
-setopt share_history
-# Input//Output
-setopt correct
-setopt correct_all
-setopt no_flow_control
+setopt    auto_cd
+setopt    auto_pushd
+setopt    pushd_ignore_dups
+setopt    pushd_minus
 
 # Completion
-setopt glob_complete
-zstyle ':completion:*:*:*:*:*' menu select
+#setopt   auto_list            # Default
+#unsetopt bash_auto_list       # Default
+#setopt   auto_menu            # Default
+setopt    glob_complete        # Generate completion list from glob expansion
+setopt    list_packed          # Make list of completions occupy less space
+setopt    list_rows_first      # Sort completions from left to right (by row)
+#setopt   list_types           # Default
+unsetopt  list_ambiguous       # Display completion list immediately on ambiguous completion
+#unsetopt menu_complete        # Default
+#unsetopt rec_exact            # Default
+
+# Expansion and globbing
+setopt    glob
+unsetopt  case_glob
+unsetopt  case_match
+
+# History
+setopt    append_history
+setopt    hist_fcntl_lock
+setopt    hist_ignore_all_dups
+setopt    hist_ignore_space
+setopt    hist_lex_words
+setopt    hist_reduce_blanks
+setopt    hist_verify
+unsetopt  inc_append_history
+setopt    share_history
+
+# Input//Output
+setopt    correct
+setopt    correct_all
+unsetopt  flow_control
+
+# Case insensitive completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} r:|[._-]=* r:|=*' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}'
+# Select menu items from completion list on subsequent tab key presses (use ctrl-g to cancel)
+zstyle ':completion:*:*:*:*:*' menu select
+# Enable approximate matches for completion
+#zstyle ':completion:::::' completer _expand _complete _ignored _approximate
+
+# Customize style of completion list
+# See `man zshmodules` for more details
+# See also: http://zsh.sourceforge.net/Guide/zshguide06.html
+# di: style of directories
+# ma: style of highlighted item
+zstyle ':completion:*' list-colors "di=32" "ma=3;4;33"
+
 autoload -Uz compinit && compinit
 # Load bashcompinit for some old bash completions
 autoload bashcompinit && bashcompinit
@@ -86,5 +110,4 @@ bindkey $'^[[B' down-line-or-search  # down arrow
 if [[ "${terminfo[kcbt]}" != "" ]]; then
   bindkey "${terminfo[kcbt]}" reverse-menu-complete   # [Shift-Tab] - move through the completion menu backwards
 fi
-
 
