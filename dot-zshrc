@@ -95,9 +95,6 @@ zstyle ':completion:*' list-colors \
 "tw=1;44"                          \
 
 autoload -Uz compinit && compinit
-# Load bashcompinit for some old bash completions
-autoload bashcompinit && bashcompinit
-[[ -r /usr/local/etc/bash_completion.d/fossil-autocomplete.bash ]] && source /usr/local/etc/bash_completion.d/fossil-autocomplete.bash
 
 # Aliases
 alias .2="cd ../.."

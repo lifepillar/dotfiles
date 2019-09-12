@@ -1,0 +1,30 @@
+#compdef fossil
+
+local expl
+
+function _fossil_get_command_list() {
+  fossil help -a
+}
+
+_arguments           \
+  '1: :->command'    \
+  '2: :->subcommand'
+
+case $state in
+  command)
+    local _OUTPUT=`fossil branch 2>&1 | grep "use --repo"`
+    if [ "$_OUTPUT" = "" ]; then
+      compadd `_fossil_get_command_list`
+    else
+      compadd clone init import help version
+    fi
+    ;;
+  subcommand)
+    if [ "$words[2]" = "help" ]; then
+      compadd `_fossil_get_command_list`
+    else
+      compcall -D
+    fi
+    ;;
+esac
+
