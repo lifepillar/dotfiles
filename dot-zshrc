@@ -76,12 +76,23 @@ zstyle ':completion:*:*:*:*:*' menu select
 # Enable approximate matches for completion
 #zstyle ':completion:::::' completer _expand _complete _ignored _approximate
 
-# Customize style of completion list
-# See `man zshmodules` for more details
+# Customize style of completion list (`man zshmodules` for more details)
 # See also: http://zsh.sourceforge.net/Guide/zshguide06.html
-# di: style of directories
 # ma: style of highlighted item
-zstyle ':completion:*' list-colors "di=32" "ma=3;4;33"
+zstyle ':completion:*' list-colors \
+"bd=1;46"                          \
+"cd=1;46"                          \
+"di=0;34"                          \
+"ex=0;3;32"                        \
+"ln=0;36"                          \
+"ma=1;3;35"                        \
+"ow=0;44"                          \
+"pi=0;7;36"                        \
+"sg=1;3;31"                        \
+"so=0;46"                          \
+"st=1;34"                          \
+"su=1;3;31"                        \
+"tw=1;44"                          \
 
 autoload -Uz compinit && compinit
 # Load bashcompinit for some old bash completions
