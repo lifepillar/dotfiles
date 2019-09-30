@@ -24,6 +24,9 @@ HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=5000
 SAVEHIST=4000
 
+# Reclaim CTRL-S for use, e.g., with Vim (see: man stty)
+stty -ixon
+
 # ZSH options (http://zsh.sourceforge.net/Doc/Release/Options.html)
 
 # Changing directories
