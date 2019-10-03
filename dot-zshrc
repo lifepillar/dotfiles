@@ -118,6 +118,11 @@ alias -s  vim="vim"
 
 # Emacs key bindings (use -v for vi key bindings)
 bindkey -e
+# Use Esc+Backspace to delete the previous word (vi style)
+bindkey $'^[^?' vi-backward-kill-word
+# Remap CTRL-U to delete from current position back to start of line
+bindkey $'^U' backward-kill-line
+
 # Better history navigation (matches current text)
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
