@@ -8,7 +8,7 @@ set signature ""
 % Tell slrn which newsrc file it should use for which server.
 % Note: This does *not* set the default server; you need to set the
 %       NNTPSERVER environment variable for this.
-server "snews://news.gmane.org"        ".slrn/newsrc-gmane"
+server "news.gwene.org"                ".slrn/newsrc-gwene"
 server "snews://nntp.aioe.org"         ".slrn/newsrc-aioe"
 server "freenews.netfront.net"         ".slrn/newsrc-freenews"
 
