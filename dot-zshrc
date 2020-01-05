@@ -44,7 +44,7 @@ setopt    list_packed          # Make list of completions occupy less space
 setopt    list_rows_first      # Sort completions from left to right (by row)
 #setopt   list_types           # Default
 unsetopt  list_ambiguous       # Display completion list immediately on ambiguous completion
-#unsetopt menu_complete        # Default
+setopt    menu_complete        # On an ambiguous completion, insert the first match immediately
 #unsetopt rec_exact            # Default
 
 # Expansion and globbing
@@ -64,8 +64,8 @@ unsetopt  inc_append_history
 setopt    share_history
 
 # Input//Output
-setopt    correct
-setopt    correct_all
+unsetopt  correct
+unsetopt  correct_all
 unsetopt  flow_control
 
 # Prompting
