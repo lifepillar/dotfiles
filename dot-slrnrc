@@ -77,7 +77,7 @@ set abort_unmodified_edits 1
 % is set; non_Xbrowser otherwise.
 %set non_Xbrowser "lynx '%s'"
 %set Xbrowser "firefox '%s' &"
-set Xbrowser "open '%s'"
+set Xbrowser "open -a Firefox '%s'"
 
 % Command to use for printing
 % Note: On Win32, this variable defines the name of the printer queue to use.
