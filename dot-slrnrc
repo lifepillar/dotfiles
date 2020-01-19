@@ -1,9 +1,6 @@
 % -*- slang -*-
 
-set username "lifepillar"
-set hostname "lifepillar.me"
-set realname "Lifepillar"
-set replyto  "Lifepillar <lifepillar@lifepillar.me>"
+set hostname "nohost.org"
 set signature ""
 % Tell slrn which newsrc file it should use for which server.
 % Note: This does *not* set the default server; you need to set the
